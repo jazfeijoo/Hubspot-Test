@@ -17,4 +17,8 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 
+app.use((err, req, res, next) => {
+    res.status(err.status || 500).send(err.message || 'API route not found: Internal server error.')
+})
+
 module.exports = app;
